@@ -1,0 +1,82 @@
+proc vsimulink {args} {
+  lappend sllibarg -foreign \{simlinkserver \{C:/Program Files/MATLAB/R2016a/toolbox/edalink/extensions/modelsim/windows32/liblfmhdls_gcc421vc9.dll\}
+  if {[catch {lsearch -exact $args -socket} idx]==0  && $idx >= 0} {
+    set socket [lindex $args [expr {$idx + 1}]]
+    set args [lreplace $args $idx [expr {$idx + 1}]]
+    append socketarg " \; -socket " "$socket"
+    lappend sllibarg $socketarg
+  }
+  set runmode "Batch"
+  if { $runmode == "Batch" || $runmode == "Batch with Xterm"} {
+    lappend sllibarg " \; -batch"
+  }
+  lappend sllibarg \}
+  set args [linsert $args 0 vsim]
+  lappend args [join $sllibarg]
+  uplevel 1 [join $args]
+}
+proc vsimmatlab {args} {
+  lappend mllibarg -foreign \{matlabclient \{C:/Program Files/MATLAB/R2016a/toolbox/edalink/extensions/modelsim/windows32/liblfmhdlc_gcc421vc9.dll\}
+  lappend mllibarg \}
+  lappend mlinput 
+  lappend mlinput [join $args]
+  lappend mlinput [join $mllibarg]
+   set mlinput [linsert $mlinput 0 vsim]
+  uplevel 1 [join $mlinput]
+}
+proc wrapverilog {args} {
+
+  error "wrapverilog has been removed. HDL Verifier now supports Verilog models directly, without requiring a VHDL wrapper."}
+
+
+proc vsimmatlabsysobj {args} {
+  lappend sllibarg -foreign \{matlabsysobjserver \{C:/Program Files/MATLAB/R2016a/toolbox/edalink/extensions/modelsim/windows32/liblfmhdls_gcc421vc9.dll\}
+  if {[catch {lsearch -exact $args -socket} idx]==0  && $idx >= 0} {
+    set socket [lindex $args [expr {$idx + 1}]]
+    set args [lreplace $args $idx [expr {$idx + 1}]]
+    append socketarg " \; -socket " "$socket"
+    lappend sllibarg $socketarg
+  }
+  set runmode "Batch"
+  if { $runmode == "Batch" || $runmode == "Batch with Xterm"} {
+    lappend sllibarg " \; -batch"
+  }
+  lappend sllibarg \}
+  set args [linsert $args 0 vsim]
+  lappend args [join $sllibarg]
+  uplevel 1 [join $args]
+}
+vsimmatlabsysobj squaring_circuit_8bit -t 1ns ;
+# //  ModelSim PE Student Edition 10.4a Apr  7 2015 
+# //
+# //  Copyright 1991-2015 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //  THIS DOCUMENT CONTAINS TRADE SECRETS AND COMMERCIAL OR FINANCIAL
+# //  INFORMATION THAT ARE PRIVILEGED, CONFIDENTIAL, AND EXEMPT FROM
+# //  DISCLOSURE UNDER THE FREEDOM OF INFORMATION ACT, 5 U.S.C. SECTION 552.
+# //  FURTHERMORE, THIS INFORMATION IS PROHIBITED FROM DISCLOSURE UNDER
+# //  THE TRADE SECRETS ACT, 18 U.S.C. SECTION 1905.
+# //
+# // NOT FOR CORPORATE OR PRODUCTION USE.
+# // THE ModelSim PE Student Edition IS NOT A SUPPORTED PRODUCT.
+# // FOR HIGHER EDUCATION PURPOSES ONLY
+# //
+# vsim 
+# Start time: 19:01:44 on Aug 17,2018
+# Loading work.squaring_circuit_8bit
+# Loading work.CSA_32
+# Loading work.CSA_22
+# Loading work.RippleCarryAdder
+# Loading C:/Program Files/MATLAB/R2016a/toolbox/edalink/extensions/modelsim/windows32/liblfmhdls_gcc421vc9.dll
+# ************************************************************************
+# HDL server has been started in batch mode. The HDL simulator will be 
+# blocked until Simulink starts cosimulation. If you do not want to run
+# in batch mode, restart the HDL simulator in a different run mode. To 
+# exit the HDL simulator without running a cosimulation session, issue 
+# the breakHdlSim command in MATLAB.
+# Break key hit
+# Break at an unknown location
